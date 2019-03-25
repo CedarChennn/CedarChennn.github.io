@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en,zh-tw,default">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据库的基本使用 sudo -s 切换到root用户 sudo service mysql start     启动MySQL drop database python-04; 其中`在table键上面 select database()            查看当前使用的数据库 desc 表名;                    查看这个表的结构 MySQL查询12345678910111">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mySQL数据库">
+<meta property="og:url" content="http://yoursite.com/2019/03/22/mySQL数据库/index.html">
+<meta property="og:site_name" content="blog">
+<meta property="og:description" content="数据库的基本使用 sudo -s 切换到root用户 sudo service mysql start     启动MySQL drop database python-04; 其中`在table键上面 select database()            查看当前使用的数据库 desc 表名;                    查看这个表的结构 MySQL查询12345678910111">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-03-25T03:29:49.415Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mySQL数据库">
+<meta name="twitter:description" content="数据库的基本使用 sudo -s 切换到root用户 sudo service mysql start     启动MySQL drop database python-04; 其中`在table键上面 select database()            查看当前使用的数据库 desc 表名;                    查看这个表的结构 MySQL查询12345678910111">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/22/mySQL数据库/">
+
+
+
+
+
+  <title>mySQL数据库 | blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">student's blogs</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tag" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/22/mySQL数据库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cedar Chen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mySQL数据库</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-22T17:29:08+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据库的基本使用"><a href="#数据库的基本使用" class="headerlink" title="数据库的基本使用"></a>数据库的基本使用</h1><p> sudo -s 切换到root用户<br> sudo service mysql start     启动MySQL<br> drop database <code>python-04</code>;<br> 其中`在table键上面<br> select database()            查看当前使用的数据库<br> desc 表名;                    查看这个表的结构</p>
+<h1 id="MySQL查询"><a href="#MySQL查询" class="headerlink" title="MySQL查询"></a>MySQL查询</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--修改表-修改字段-:重命名版</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">change</span> 旧列名 新列名 类型及约束;</span><br><span class="line"><span class="comment">--修改表-修改字段-:不重命名版</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">modify</span> 列名 类型及约束;</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> students(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line"><span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),</span><br><span class="line">age <span class="built_in">tinyint</span>(<span class="number">3</span>) <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">heih <span class="built_in">decimal</span>(<span class="number">5</span>,<span class="number">2</span>),</span><br><span class="line">gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'midle'</span>,<span class="string">'secret'</span>) <span class="keyword">default</span> <span class="string">'secret'</span>,</span><br><span class="line">cls_id <span class="built_in">int</span>(<span class="number">10</span>) <span class="keyword">unsigned</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students <span class="keyword">values</span>(<span class="number">03</span>,<span class="string">"尼玛"</span>,<span class="number">122</span>,<span class="number">77.77</span>,<span class="string">"male"</span>,<span class="number">22</span>);</span><br><span class="line"><span class="comment">--插入值中如果自动递增可以用0,null,defaul占位</span></span><br><span class="line"><span class="comment">--插入enum时可用数字来代替枚举变量里面的值.枚举中的下表从1开始</span></span><br><span class="line"><span class="comment">--连续插入两个数据</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students <span class="keyword">values</span>(<span class="number">03</span>,<span class="string">"尼玛"</span>,<span class="number">122</span>,<span class="number">77.77</span>,<span class="string">"male"</span>,<span class="number">22</span>),(<span class="number">03</span>,<span class="string">"草尼玛"</span>,<span class="number">122</span>,<span class="number">77.77</span>,<span class="string">"male"</span>,<span class="number">22</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> students (<span class="keyword">name</span>,gender) <span class="keyword">values</span>(<span class="string">"quit"</span>,<span class="number">1</span>),(<span class="string">"exit"</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">--数据库的准备</span></span><br><span class="line">    <span class="comment">--创建书数据库</span></span><br><span class="line">    <span class="keyword">create</span> <span class="keyword">database</span> python_test <span class="keyword">charset</span> = utf8;</span><br><span class="line">    <span class="comment">--使用数据库</span></span><br><span class="line">    <span class="keyword">use</span> python_test;</span><br><span class="line">    <span class="comment">--显示当前使用的数据库</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">database</span>();</span><br><span class="line">    <span class="comment">--创建一个表</span></span><br><span class="line">    <span class="keyword">create</span> <span class="keyword">table</span> students(</span><br><span class="line">        <span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> primary <span class="keyword">key</span> auto_increment <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">        <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">        age <span class="built_in">tinyint</span> <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="string">'0'</span>,   </span><br><span class="line">        height <span class="built_in">decimal</span>(<span class="number">5</span>,<span class="number">2</span>),</span><br><span class="line">        gender enum(<span class="string">"male"</span>,<span class="string">"female"</span>,<span class="string">"midle"</span>,<span class="string">"unknow"</span>)<span class="keyword">default</span> <span class="string">"unknow"</span>,</span><br><span class="line">        cls_id <span class="built_in">int</span> <span class="keyword">unsigned</span> <span class="keyword">default</span> <span class="string">'0'</span>,</span><br><span class="line">        is_delete <span class="built_in">bit</span> <span class="keyword">default</span> <span class="number">0</span></span><br><span class="line">        );</span><br><span class="line">    <span class="keyword">create</span> <span class="keyword">table</span> classes(</span><br><span class="line">        <span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> auto_increment primary <span class="keyword">key</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">        <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">        );</span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> students <span class="keyword">values</span></span><br><span class="line">        (<span class="number">0</span>,<span class="string">"tom"</span>,<span class="number">18</span>,<span class="number">173.22</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"midle"</span>,<span class="number">15</span>,<span class="number">173.22</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">0</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"apple"</span>,<span class="number">13</span>,<span class="number">173.22</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"hard"</span>,<span class="number">33</span>,<span class="number">173.22</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"micro"</span>,<span class="number">56</span>,<span class="number">173.22</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"goole"</span>,<span class="number">93</span>,<span class="number">173.22</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"amazon"</span>,<span class="number">34</span>,<span class="number">173.22</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">0</span>),</span><br><span class="line">        (<span class="number">0</span>,<span class="string">"bing"</span>,<span class="number">154</span>,<span class="number">173.22</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span></span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> classes <span class="keyword">values</span></span><br><span class="line">        (<span class="number">0</span>,<span class="string">"python"</span>),</span><br><span class="line">        (<span class="number">1</span>,<span class="string">"c++"</span>),</span><br><span class="line">        (<span class="number">2</span>,<span class="string">"MySQL"</span>);</span><br><span class="line">    <span class="comment">--去重查询</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">distinct</span> gender <span class="keyword">from</span> students;</span><br><span class="line">    <span class="comment">--模糊查询</span></span><br><span class="line">        <span class="comment">--like</span></span><br><span class="line">        <span class="comment">--% 替换1个或者多个 </span></span><br><span class="line">        <span class="comment">--_替换一个头</span></span><br><span class="line">        <span class="comment">--查询姓名中所有"小"的所有名字</span></span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span><span class="string">"%小%"</span>;</span><br><span class="line">        <span class="comment">--查询至少有两个字的字的名字</span></span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">"__%"</span>;</span><br><span class="line">        <span class="comment">--rlike 正则表达式匹配</span></span><br><span class="line">        <span class="comment">--查询以周开始的名字</span></span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">rlike</span> <span class="string">"^m.*"</span>;</span><br><span class="line">        <span class="comment">--周开始伦结尾</span></span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">rlike</span> <span class="string">"^周.*伦$"</span>;</span><br><span class="line">        <span class="comment">--范围查询</span></span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> age <span class="keyword">in</span> (<span class="number">18</span>,<span class="number">13</span>);</span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> age <span class="keyword">between</span> <span class="number">18</span> <span class="keyword">and</span> <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">--保留两位小数</span></span><br><span class="line">        <span class="keyword">select</span> <span class="keyword">round</span>(<span class="keyword">avg</span>(age)* <span class="keyword">count</span>(age),<span class="number">2</span>) <span class="keyword">from</span> students;</span><br><span class="line">    <span class="comment">--分组</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">--查看组内的内容</span></span><br><span class="line">        <span class="keyword">select</span> gender,<span class="keyword">group_concat</span>(<span class="keyword">name</span>) <span class="keyword">from</span> students <span class="keyword">group</span> <span class="keyword">by</span> gender;</span><br><span class="line">        <span class="comment">--查询每种性别中人数多于2个的信息</span></span><br><span class="line">        <span class="keyword">select</span> gender ,<span class="keyword">group_concat</span>(<span class="keyword">name</span>) <span class="keyword">from</span> students <span class="keyword">group</span> <span class="keyword">by</span> gender <span class="keyword">having</span> <span class="keyword">count</span>(gender)&gt;<span class="number">2</span>;</span><br><span class="line">        <span class="comment">--限制查询出的数据的个数</span></span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> students <span class="keyword">where</span> gender =<span class="number">1</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">5</span>;<span class="comment">--limit(第N页-1)*每页的个数,每页的个数</span></span><br><span class="line">    <span class="comment">--连接查询</span></span><br><span class="line">    <span class="keyword">select</span> students.name,classes.name <span class="keyword">from</span> students ,classes <span class="keyword">where</span> classes.id =students.cls_id;</span><br><span class="line">        <span class="comment">--内连接</span></span><br><span class="line">        <span class="keyword">select</span> students.*,classes.name <span class="keyword">from</span> students <span class="keyword">inner</span> <span class="keyword">join</span> classes <span class="keyword">on</span> students.cls_id =classes.id;</span><br><span class="line">        <span class="keyword">select</span> c.name ,s.name <span class="keyword">from</span> classes <span class="keyword">as</span> c <span class="keyword">inner</span> <span class="keyword">join</span> students <span class="keyword">as</span> s  <span class="keyword">on</span> c.id = s.cls_id <span class="keyword">order</span> <span class="keyword">by</span> c.name;</span><br><span class="line">        <span class="comment">--子查询</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--创建京豆数据库</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> jing_dong <span class="keyword">charset</span> = utf8;</span><br><span class="line"><span class="comment">--使用京东数据可</span></span><br><span class="line"><span class="keyword">use</span> jing_dong;</span><br><span class="line"><span class="comment">--创建一个商品goods数据表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> goods(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> primary <span class="keyword">key</span> auto_increment <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">150</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    cate_name <span class="built_in">varchar</span>(<span class="number">40</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    brand_name <span class="built_in">varchar</span>(<span class="number">40</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    price <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">3</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span>,</span><br><span class="line">    is_show <span class="built_in">bit</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">1</span>,</span><br><span class="line">    is_saleoff <span class="built_in">bit</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0</span></span><br><span class="line">);</span><br><span class="line"><span class="comment">--向good表中插入数据</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r510 15.6寸笔记本电脑'</span>,<span class="string">'笔记本'</span>,<span class="string">'华硕'</span>,<span class="string">'3399'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r510 14.6寸笔记本电脑'</span>,<span class="string">'笔记本'</span>,<span class="string">'联想'</span>,<span class="string">'4999'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r150h 15.6寸游戏本'</span>,<span class="string">'游戏本'</span>,<span class="string">'雷神'</span>,<span class="string">'8499'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r550cc 15.6寸笔记本电脑'</span>,<span class="string">'笔记本'</span>,<span class="string">'华硕'</span>,<span class="string">'2799'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r240 超极本'</span>,<span class="string">'超极本'</span>,<span class="string">'联想'</span>,<span class="string">'4299'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r13226scb 超级触控笔记本'</span>,<span class="string">'超极本'</span>,<span class="string">'索尼'</span>,<span class="string">'7999'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'ipad mini 7.9英寸平板电脑'</span>,<span class="string">'平板电脑'</span>,<span class="string">'苹果'</span>,<span class="string">'1998'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'ipad mini 9.7英寸平板电脑'</span>,<span class="string">'平板电脑'</span>,<span class="string">'苹果'</span>,<span class="string">'2799'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'ipad mini配备retina显示屏幕'</span>,<span class="string">'平板电脑'</span>,<span class="string">'苹果'</span>,<span class="string">'2788'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'20英寸一体电脑'</span>,<span class="string">'台式机'</span>,<span class="string">'戴尔'</span>,<span class="string">'2899'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'imac21.5寸一体电脑'</span>,<span class="string">'台式机'</span>,<span class="string">'苹果'</span>,<span class="string">'9188'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'台式电脑linux'</span>,<span class="string">'台式机'</span>,<span class="string">'宏碁'</span>,<span class="string">'3699'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'r510 工作站'</span>,<span class="string">'服务器/工作站'</span>,<span class="string">'惠普'</span>,<span class="string">'4288'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'ii服务器'</span>,<span class="string">'服务器/工作站'</span>,<span class="string">'戴尔'</span>,<span class="string">'5388'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'mac pro专业台式电脑'</span>,<span class="string">'服务器工作站'</span>,<span class="string">'苹果'</span>,<span class="string">'28888'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'头戴显示设备'</span>,<span class="string">'笔记本配件'</span>,<span class="string">'索尼'</span>,<span class="string">'6999'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'商务双肩背包'</span>,<span class="string">'笔记本配件'</span>,<span class="string">'索尼'</span>,<span class="string">'99'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'m4机构式服务器'</span>,<span class="string">'服务器/工作站'</span>,<span class="string">'ibm'</span>,<span class="string">'6888'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'商务双肩背包'</span>,<span class="string">'笔记本配件'</span>,<span class="string">'索尼'</span>,<span class="string">'99'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'X240 超极本'</span>,<span class="string">'超级本'</span>,<span class="string">'联想'</span>,<span class="string">'4880'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'ipad air 9.7英寸平板电脑'</span>,<span class="string">'平板电脑'</span>,<span class="string">'苹果'</span>,<span class="string">'3388'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods <span class="keyword">values</span>(<span class="number">0</span>,<span class="string">'c340 20英寸一体电脑'</span>,<span class="string">'台式机'</span>,<span class="string">'联想'</span>,<span class="string">'3499'</span>,<span class="keyword">default</span>,<span class="keyword">default</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">name</span> price <span class="keyword">from</span> goods <span class="keyword">where</span> cate_name=<span class="string">'超极本'</span>;</span><br><span class="line"><span class="keyword">update</span> goods <span class="keyword">set</span> cate_name =<span class="string">'超极本'</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> cate_name <span class="keyword">from</span> goods <span class="keyword">group</span> <span class="keyword">by</span> cate_name;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">round</span>(<span class="keyword">avg</span>(price),<span class="number">2</span>) <span class="keyword">from</span> goods;</span><br><span class="line"><span class="keyword">select</span> cate_name,<span class="keyword">avg</span>(price) <span class="keyword">from</span> goods <span class="keyword">group</span> <span class="keyword">by</span> cate_name;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> goods <span class="keyword">where</span> price&gt;</span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">avg</span>(price) <span class="keyword">from</span> goods</span><br><span class="line">);</span><br><span class="line"><span class="comment">--查询每种商品中最贵的</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> goods <span class="keyword">as</span> <span class="keyword">old</span></span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span></span><br><span class="line">(</span><br><span class="line"><span class="keyword">select</span> cate_name,<span class="keyword">max</span>(price) <span class="keyword">as</span> maxprice </span><br><span class="line"><span class="keyword">from</span> goods</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> cate_name</span><br><span class="line">)<span class="keyword">as</span> <span class="keyword">new</span></span><br><span class="line"><span class="keyword">on</span> old.cate_name=new.cate_name <span class="keyword">and</span> old.price = new.maxprice;</span><br><span class="line"><span class="comment">--建表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> goods_cates(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">40</span>) <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> goods_cates (<span class="keyword">name</span>) <span class="keyword">select</span> <span class="keyword">distinct</span> cate_name <span class="keyword">from</span> goods; </span><br><span class="line"><span class="comment">--通过goods_cates表来更像goods表!!!!!重点!!!!!!!!!</span></span><br><span class="line"><span class="keyword">update</span> goods </span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> goods_cates</span><br><span class="line"><span class="keyword">on</span> goods.cate_name = goods_cates.name</span><br><span class="line"><span class="keyword">set</span> goods.cate_name = goods.id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> goods <span class="keyword">add</span> <span class="keyword">foreign</span> <span class="keyword">key</span>(cate_id) <span class="keyword">references</span> goods_cates(<span class="keyword">id</span>);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> goods <span class="keyword">drop</span> <span class="keyword">foreign</span> <span class="keyword">key</span> 外键名;</span><br><span class="line"><span class="comment">--视图</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> view_name <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> goods;</span><br><span class="line"></span><br><span class="line"><span class="comment">--事物四大特性-ACID</span></span><br><span class="line">    <span class="comment">--原子性atomicity</span></span><br><span class="line">    <span class="comment">--一致性consistency</span></span><br><span class="line">    <span class="comment">--隔离性isolation</span></span><br><span class="line">        <span class="comment">--开启事务 </span></span><br><span class="line">        <span class="keyword">begin</span>;  <span class="comment">--或者 start transaction;</span></span><br><span class="line">        <span class="comment">--提交事务</span></span><br><span class="line">        <span class="keyword">commit</span>;</span><br><span class="line">        <span class="comment">--回滚事务</span></span><br><span class="line">        <span class="keyword">rollback</span>;</span><br><span class="line">    <span class="comment">--持久性durability</span></span><br><span class="line"><span class="comment">--索引 create index 索引名称 on 表名(字段名称(长度))</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> goods_index <span class="keyword">on</span> goods(<span class="keyword">id</span>(<span class="number">10</span>));<span class="comment">--如果id类型是varchar或者char则括号里面的10是指他的长度,如果是int就不用写</span></span><br><span class="line"><span class="comment">--drop ondex 索引名称 on表名</span></span><br><span class="line"><span class="comment">--grant 权限列表 on 数据库 to '用户名'@'访问主机' identified by '密码';</span></span><br><span class="line"><span class="comment">--其中'数据库.*'表示给这个数据库的所有表对应的权限</span></span><br><span class="line"><span class="comment">--备份-运行mysqldump命令</span></span><br><span class="line">mysqldump -u root -p 数据库名 &gt; XXX.sql;</span><br><span class="line">-恢复</span><br><span class="line">    <span class="comment">--首先连接MySQL ,创建新的数据库</span></span><br><span class="line">    <span class="comment">--退出连接,执行如下的命令</span></span><br><span class="line">mysql -u root -p 新数据名 &lt; XXX.sq;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/python高级语法/" rel="next" title="python高级语法">
+                <i class="fa fa-chevron-left"></i> python高级语法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Cedar Chen</p>
+              <p class="site-description motion-element" itemprop="description">always belive that something wonderful is about to happen</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cedarchennn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/CedarChennn" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Twitter</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库的基本使用"><span class="nav-number">1.</span> <span class="nav-text">数据库的基本使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL查询"><span class="nav-number">2.</span> <span class="nav-text">MySQL查询</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cedar Chen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
